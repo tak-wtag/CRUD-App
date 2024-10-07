@@ -7,6 +7,9 @@ services:
       dockerfile: Dockerfile
     ports:
       - "8001:8000"
+    working_dir: /code
+    volumes:
+      - ${PWD}:/code
     depends_on:
       - postgres
     restart: on-failure
