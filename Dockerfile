@@ -1,5 +1,4 @@
-FROM python:latest 
-
+FROM python:3.12.6
 
 WORKDIR /code
 COPY requirements.txt requirements.txt
