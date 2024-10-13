@@ -4,7 +4,9 @@ services:
   app:
     build:
       context: .
-      dockerfile: Dockerfile
+      dockerfile: Dockerfile.dev
+    networks:
+      - my-network
     ports:
       - "8001:8000"
     working_dir: /code
@@ -20,6 +22,8 @@ services:
       - DB_NAME=crud_db
   postgres:
     image: postgres:14-alpine
+    networks:
+      - my-network
     ports:
       - "5433:5432"
     volumes:
@@ -28,4 +32,8 @@ services:
       - POSTGRES_PASSWORD=1234
       - POSTGRES_USER=root
       - POSTGRES_DB=crud_db
+networks:
+  my-network:
+    driver: bridge
+
   

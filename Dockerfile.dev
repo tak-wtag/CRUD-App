@@ -1,0 +1,20 @@
+FROM python:3.12.6 as builder
+
+WORKDIR /code
+
+COPY requirements.txt requirements.txt
+
+RUN pip3 install -r requirements.txt
+
+COPY . .
+
+FROM builder 
+
+WORKDIR /code
+
+COPY --from=builder /usr/local/lib/python3.12/site-packages /usr/local/lib/python3.12/site-packages
+
+COPY --from=builder /code .
+
+CMD ["uvicorn", "main:app", "--host", "0.0.0.0", "--port", "8000"]
+
