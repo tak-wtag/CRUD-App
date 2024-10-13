@@ -9,7 +9,7 @@ services:
     networks:
       - my-network
     ports:
-      - "8001:8000"
+      - "${PORT:-8000}:8000"
     working_dir: /code
     volumes:
       - ${PWD}:/code
@@ -36,5 +36,3 @@ services:
 networks:
   my-network:
     driver: bridge
-
-  
