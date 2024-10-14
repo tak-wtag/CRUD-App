@@ -6,6 +6,8 @@ services:
       context: .
       dockerfile: Dockerfile.dev
       target: run
+      args:
+        - PORT=8000
     networks:
       - my-network
     
@@ -20,7 +22,7 @@ services:
       - DB_USER=root
       - DB_PASSWORD=1234
       - DB_NAME=crud_db
-      - PORT=${PORT:-8000}
+      - PORT=$PORT
     ports:
       - "8000:${PORT:-8000}"
   postgres:
