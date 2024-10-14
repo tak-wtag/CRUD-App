@@ -8,8 +8,7 @@ services:
       target: run
     networks:
       - my-network
-    ports:
-      - "${PORT:-8000}:8000"
+    
     working_dir: /code
     volumes:
       - ${PWD}:/code
@@ -21,6 +20,9 @@ services:
       - DB_USER=root
       - DB_PASSWORD=1234
       - DB_NAME=crud_db
+      - PORT=${PORT:-8000}
+    ports:
+      - "8000:${PORT:-8000}"
   postgres:
     image: postgres:14-alpine
     networks:
