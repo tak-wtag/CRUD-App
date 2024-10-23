@@ -22,7 +22,7 @@ services:
       - DB_USER=root
       - DB_PASSWORD=1234
       - DB_NAME=crud_db
-      - PORT=$PORT
+      - DB_PORT=5432
     ports:
       - "8000:${PORT:-8000}"
   postgres:
