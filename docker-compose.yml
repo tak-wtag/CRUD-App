@@ -12,8 +12,6 @@ services:
       - my-network
     
     working_dir: /code
-    volumes:
-      - ${PWD}:/code
     depends_on:
       - postgres
     restart: on-failure

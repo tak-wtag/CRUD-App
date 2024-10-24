@@ -5,6 +5,19 @@ from schemas.user import User
 
 user = APIRouter()
 
+@user.on_event("startup")
+def create_table():
+    cursor = conn.cursor()
+    create_table_query = """
+    CREATE TABLE IF NOT EXISTS users (
+        id SERIAL PRIMARY KEY,
+        name VARCHAR(100) NOT NULL,
+        email VARCHAR(100) UNIQUE NOT NULL,
+        password VARCHAR(100) NOT NULL
+    )
+    """
+    cursor.execute(create_table_query)
+
 @user.post("/{users}")
 def posts(user : User):
     cursor = conn.cursor()
@@ -12,7 +25,20 @@ def posts(user : User):
     cursor.execute(insert_q,(user.name, user.email, user.password))
     conn.commit()
     #conn.close()
-    return {"message": "this is working"}
+    return {"message": "user created"}
+
+@user.get("/users/")
+async def read():
+    cursor = conn.cursor()
+    select_q = "SELECT * from users"
+    cursor.execute(select_q, )
+    user = cursor.fetchall()
+    conn.commit()
+    #cursor.close()
+    if user:
+        return user
+    else:
+        return {"msg": "Data not available"}
 
 @user.get("/{id}")
 def read(id: int):
