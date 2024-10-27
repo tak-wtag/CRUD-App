@@ -25,17 +25,7 @@ spec:
             - name: postgres-storage
               mountPath: /var/lib/postgresql/data
               subPath: postgres
-          env:
-            - name: POSTGRES_USER
-              valueFrom:
-                secretKeyRef:
-                  name: postgres-credential
-                  key: postgres_user
-            - name: POSTGRES_PASSWORD
-              valueFrom:
-                secretKeyRef:
-                  name: postgres-credential
-                  key: postgres_password
-            - name: POSTGRES_DB
-              value: crud_db
+          envFrom:
+            - configMapRef: 
+                name: postgres-configmap
 
