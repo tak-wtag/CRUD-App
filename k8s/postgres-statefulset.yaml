@@ -1,8 +1,10 @@
 apiVersion: apps/v1
-kind: Deployment
+kind: StatefulSet
 metadata:
-  name: postgres-deployment
+  name: postgres-statefulset
+  namespace: crud
 spec:
+  serviceName: postgres
   replicas: 1
   selector:
     matchLabels:
@@ -28,4 +30,15 @@ spec:
           envFrom:
             - configMapRef: 
                 name: postgres-configmap
+          env:
+            - name: POSTGRES_USER
+              valueFrom:
+                secretKeyRef:
+                  name: postgres-credential
+                  key: postgres_user
+            - name: POSTGRES_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: postgres-credential
+                  key: postgres_password
 

@@ -2,9 +2,10 @@ apiVersion: v1
 kind: ConfigMap
 metadata:
   name: postgres-configmap
+  namespace: crud
   labels:
     component: postgres
 data:
   POSTGRES_DB: crud_db
-  POSTGRES_USER: postgres
-  POSTGRES_PASSWORD: '1234'
+  # POSTGRES_USER: postgres
+  # POSTGRES_PASSWORD: '1234'
